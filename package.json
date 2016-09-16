@@ -1,0 +1,117 @@
+{
+	"name": "bash-remote-debug",
+	"displayName": "Bash Remote Debug",
+	"version": "0.14.0",
+	"publisher": "andreweinand",
+	"description": "Starter extension for developing debug adapters for VS Code.",
+	"author": {
+		"name": "Microsoft Corporation",
+		"email": "aweinand@microsoft.com"
+	},
+	"engines": {
+		"vscode": "^1.1.0",
+		"node": "^5.10.0"
+	},
+	"icon": "images/mock-debug-icon.svg",
+	"categories": [
+		"Debuggers"
+	],
+	"private": true,
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Microsoft/vscode-mock-debug.git"
+	},
+	"bugs": {
+		"url": "https://github.com/Microsoft/vscode-mock-debug/issues"
+	},
+	"dependencies": {
+		"tilde-expansion":"0.0.0",
+		"vscode-debugprotocol": "^1.12.0",
+		"vscode-debugadapter": "^1.12.0",
+		"ssh2":"0.5.2",
+		"tilde-expansion":"0.0.0"
+	},
+	"devDependencies": {
+		"typescript": "^1.8.5",
+		"mocha": "^2.4.5",
+		"vscode": "^0.11.13",
+		"vscode-debugadapter-testsupport": "^1.12.0"
+	},
+	"scripts": {
+		"prepublish": "node ./node_modules/typescript/bin/tsc -p ./src",
+		"compile": "node ./node_modules/typescript/bin/tsc -p ./src",
+		"watch": "node ./node_modules/typescript/bin/tsc -w -p ./src",
+		"test": "node ./node_modules/mocha/bin/mocha -u tdd ./out/tests/",
+		"postinstall": "node ./node_modules/vscode/bin/install"
+	},
+	"main": "./out/extension",
+	"activationEvents": [
+		"onCommand:extension.getProgramName"
+	],
+	"contributes": {
+		"breakpoints": [
+			{
+				"language": "shellscript"
+			}
+		],
+		"debuggers": [
+			{
+				"type": "bash",
+				"label": "bash Debug",
+
+				"program": "./out/bashDebug.js",
+				"runtime": "node",
+
+				"variables": {
+					"AskForProgramName": "extension.getProgramName"
+				},
+
+				"configurationAttributes": {
+					"launch": {
+						"required": [ "remote_address" ],
+						"properties": {
+							"remote_address": {
+								"type": "string",
+								"description": "Remote ssh address. Default is localhost",
+								"default": "localhost"
+							},
+							"username": {
+								"type": "string",
+								"description":"logging username",
+								"default":"root"
+							},
+							"port": {
+								"type": "number",
+								"description": "Remote ssh port.",
+								"default": 22
+							},
+							"keyfile": {
+								"type":"string",
+								"description": "ssh key file path.",
+								"default":"~/.ssh/id_rsa"
+							},
+							"filedir":{
+								"type":"string",
+								"description":"debug file dir",
+								"default":"${workspaceRoot}"
+							}
+						}
+					}
+				},
+
+				"initialConfigurations": [
+					{
+						"name": "Bash-debug",
+						"type": "bash",
+						"request": "launch",
+						"remote_address": "10.3.242.84",
+						"username": "root",
+						"port":22,
+						"filedir":"${workspaceRoot}",
+						"keyfile":"~/.ssh/id_rsa"
+					}
+				]
+			}
+		]
+	}
+}
