@@ -11,6 +11,7 @@
             "port": 22,
             "filedir": "${workspaceRoot}",
             "keyfile": "~/.ssh/id_rsa"
+
         }
     ]
 }
