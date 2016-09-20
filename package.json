@@ -97,8 +97,13 @@
 							},
 							"passphrase": {
 								"type":"string",
-								"desctiption":"ssh key password if set",
+								"description":"ssh key password if set",
 								"default":""
+							},
+							"entryfile": {
+								"type":"string",
+								"description":"start entry file",
+								"default":"${file}"
 							}
 						}
 					}
@@ -113,6 +118,7 @@
 						"username": "root",
 						"port":22,
 						"filedir":"${workspaceRoot}",
+						"entryfile":"${file}",
 						"keyfile":"~/.ssh/id_rsa"
 					}
 				]

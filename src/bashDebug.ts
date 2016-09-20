@@ -24,6 +24,7 @@ export interface LaunchRequestArguments extends DebugProtocol.LaunchRequestArgum
 	username:string;
 	filedir:string;
 	passphrase:string;
+	entryfile:string;
 }
 
 class BashDebugSession extends bashBasicDebugSession {
@@ -51,7 +52,7 @@ class BashDebugSession extends bashBasicDebugSession {
 	}
 
 	protected launchRequest(response: DebugProtocol.LaunchResponse, args: LaunchRequestArguments): void {
-		this.remote_server = new Remote(args.remote_address, args.username, args.port, args.keyfile, args.passphrase, args.filedir);
+		this.remote_server = new Remote(args.remote_address, args.username, args.port, args.keyfile, args.passphrase, args.filedir, args.entryfile);
 		this.initDebugger();
 		this.remote_server.load();
 	}

@@ -10,7 +10,7 @@
             "username": "root",
             "port": 22,
             "filedir": "${workspaceRoot}",
-            "keyfile": "~/.ssh/id_rsa"
+            "keyfile": "~/.ssh/test/id_rsa"
 
         }
     ]
